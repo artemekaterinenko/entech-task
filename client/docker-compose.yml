@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  app:
+    container_name: react-client
+    image: react-client
+    build: .
+    volumes:
+      - .:/react-client
+    ports:
+      - 8080:80

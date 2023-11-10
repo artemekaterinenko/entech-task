@@ -1,0 +1,94 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "simple-import-sort"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react/jsx-runtime",
+    "prettier"
+  ],
+  "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+
+    "no-void": "off",
+    "no-param-reassign": [
+      "error",
+      { "props": true, "ignorePropertyModificationsFor": ["draft"] }
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": ["@/features/*/*", "@/stores/*", "@/hooks/*"]
+      }
+    ],
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+
+    "import/no-cycle": "off",
+    "import/order": "off",
+    "import/extensions": [0, { "<js>": "always" }],
+    "import/no-extraneous-dependencies": "off",
+    "import/prefer-default-export": "off",
+
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "react/prop-types": "off",
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "function-declaration"
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.ts?(x)"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      }
+    },
+    {
+      "files": ["vite.config.ts", "playwright.config.ts"],
+      "parserOptions": {
+        "project": ["./tsconfig.node.json"]
+      }
+    },
+    {
+      "files": ["e2e/**/*.ts"],
+      "extends": ["plugin:playwright/playwright-test"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      }
+    },
+    {
+      "files": ["**/__tests__/**/*.ts?(x)"],
+      "extends": ["plugin:testing-library/react"],
+      "rules": {
+        "testing-library/no-await-sync-events": [
+          "error",
+          {
+            "eventModules": ["fire-event"]
+          }
+        ],
+        "testing-library/no-manual-cleanup": "error",
+        "testing-library/prefer-explicit-assert": "error",
+        "testing-library/prefer-user-event": "error",
+        "testing-library/prefer-wait-for": "error"
+      }
+    }
+  ]
+}
